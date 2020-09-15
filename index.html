@@ -9,17 +9,23 @@
     <title>Weather Application</title>
 </head>
 <body>
-    <canvas id="canvas" width="1300" height="400" style="border:1px solid #d3d3d3; margin-left: 100px;" ></canvas>
+    <div style="position: relative;">
+        <canvas id="canvas" width="1300" height="400" style="  margin-left: 100px;z-index: 0;" ></canvas>
+        <canvas id="canvas2" width="1300" height="400" style="position:absolute; left:0; top:0; margin-left: 100px; z-index: 1;" ></canvas>
 
-    <div class="container" style='margin-left:40%' id='data'>
-        <h2>My Weather App</h2>
-        <p id='errorinfo'></p>
-        <label for="location">Location</label>
-        <input type="text" id='location' placeholder='Enter your location.'>
+    </div>
+   
+    <div  style=' background-image: linear-gradient(rgb(232, 248, 255),rgb(140, 184, 252));' id='data'>
+        <h2 style="text-align: center; padding-top:10px">My Weather App</h2>
+        <p style="margin-left: 40%;" id='errorinfo'></p>
         <br>
-        <button type="submit" class="btn btn-success" onclick="getdata()">Get Weather data!</button>
-    <br><br>
-    <div id='data' >
+        <label for="location" style="margin-left: 40%;">Location</label>
+
+        <input type="text" id='location' placeholder='Enter your location.'>
+        <br><br>
+        <button style="margin-left: 40%;"type="submit" class="btn btn-success" onclick="getdata()">Get Weather data!</button>
+    <br><br><br>
+    <div id='data' style="margin-left: 40%;" >
         <h4  id='place'>Place:</h4>
         <h4 id='temperature'>Temparature:</h4>
         <h4 id='description' style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:20px; font-weight: 300; color:navy"></h4>

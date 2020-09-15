@@ -1,4 +1,3 @@
-
         function getdata(){
             var location= document.getElementById('location').value;
             var place=document.getElementById('place');
@@ -26,8 +25,12 @@
             draw();
 
             function draw() {
-                var c= document.getElementById("canvas");
-                var ctx = c.getContext("2d");
+            var c= document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            var c2= document.getElementById("canvas2");
+            var ctx2 = c2.getContext("2d");
+            
+
                 //temp2= parseFloat(temp);
                // console.log(more)
                 if(more==='mist'){
@@ -45,7 +48,7 @@
                         mist_x += 0.6;
                         if (mist_x > 1000 ) {
                             mist_x = -mist.width;
-                            ctx.clearRect(0,0, 1520,500)
+                            ctx.clearRect(0,0, 1300,500);
                         };
                     }
                     function loop() {
@@ -55,6 +58,8 @@
                         ctx.fillStyle = shading;
                         ctx.fillRect(0, 0, 1300, 400);
                         ctx.drawImage(mist, mist_x, 180);
+                        
+                        
                 
                         update();
                     }
@@ -87,9 +92,12 @@
                         };
                     }
                     function loop() {
+                        ctx2.fillText(city, 0, 0)
                         ctx.drawImage(cloud, cloud_x, 0);
-                        ctx.drawImage(cloud1, 0,0)
+                        ctx.drawImage(cloud1, 0,0);
+                        ctx2.fillText('location',0,0);
                         update();
+                        
                     }
                     
                     init();
@@ -104,7 +112,8 @@
                         sky.src = 'images/sky.jpg';
                         return setInterval(loop, 10);
                     } function loop() {
-                        ctx.drawImage(sky, 0,0)
+                        ctx.drawImage(sky, 0,0);
+                        
                     }
                      init();       
                     
@@ -142,6 +151,7 @@
                     ctx.lineTo(p.x + p.l * 1, p.y + p.l * p.ylength);
                     ctx.stroke();
                     
+                    
                 };
                 update();
                  };
@@ -162,7 +172,7 @@
             };
             rain();
                                 
-            }else if( more==='shower rain' || more==='rain' || more==='thunderstorm'){
+            }else if( more==='shower rain' || more==='rain' || more==='thunderstorm' || more=='haze'){
                 function rain() {
                 var w = 1300;
                 var h = 400;
@@ -195,6 +205,7 @@
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(p.x + p.l * 1, p.y + p.l * p.ylength);
                     ctx.stroke();
+                    ctx2.fillText('location',0,0);
                 };
                 update();
                  };
@@ -215,13 +226,10 @@
             };
             rain();
                                 
-            }else if( more==='snow'){
+            }else if( more==='snow' ){
                 function snow() {
                 var w = 1300;
                 var h = 400;
-                
-                ctx.lineWidth = 5;
-                ctx.lineCap = 'round';
          
                 var arr = [];
                 var drops = 800;
@@ -230,8 +238,7 @@
                     //x=x coord, y=y coord, ylentgh= lentgh of drop, l=x width very samll (1)
                     x: Math.random() * w,
                     y: Math.random() * h,
-                    l: Math.random() * 1,
-                    ylength: Math.random() * 10 + 4
+                    ylength: Math.random() * 7 + 3,
                 })};
                 
                 var particles = [];
@@ -244,23 +251,20 @@
                 for(var i = 0; i < particles.length; i++) {
                     var p = particles[i];
                     ctx.beginPath();
-                    //make particle of dimensions
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x + p.l * 1, p.y + p.l * p.ylength);
-                    ctx.strokeStyle='grey';
-                    ctx.stroke();
+                    ctx.arc(p.x,p.y, Math.random()*7,0, 2*Math.PI)
+                    ctx.fillStyle='lightgrey';
+                    ctx.fill();
                 };
                 update();
                  };
                 function update() {
                 for(var b = 0; b < particles.length; b++) {
                     var p = particles[b];
-                    p.x +=1;
                     p.y += p.ylength;
                     //is they go out of screen, remake on canvas
                     if(p.x > w || p.y > h) {
                     p.x = Math.random() * w;
-                    p.y = -7;
+                    p.y = 0;
                     }
                 }
                 }
