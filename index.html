@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="script.js"></script>
+    <title>Weather Application</title>
+</head>
+<body>
+    <canvas id="canvas" width="1300" height="400" style="border:1px solid #d3d3d3; margin-left: 100px;" ></canvas>
+
+    <div class="container" style='margin-left:40%' id='data'>
+        <h2>My Weather App</h2>
+        <p id='errorinfo'></p>
+        <label for="location">Location</label>
+        <input type="text" id='location' placeholder='Enter your location.'>
+        <br>
+        <button type="submit" class="btn btn-success" onclick="getdata()">Get Weather data!</button>
+    <br><br>
+    <div id='data' >
+        <h4  id='place'>Place:</h4>
+        <h4 id='temperature'>Temparature:</h4>
+        <h4 id='description' style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:20px; font-weight: 300; color:navy"></h4>
+        <table>
+
+        </table>
+    </div>
+    </div>
+
+    
+    
+</body>
+</html>
