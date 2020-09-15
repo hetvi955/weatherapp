@@ -172,7 +172,7 @@
             };
             rain();
                                 
-            }else if( more==='shower rain' || more==='rain' || more==='thunderstorm' || more=='haze'){
+            }else if( more==='shower rain' || more==='rain' || more==='thunderstorm' ){
                 function rain() {
                 var w = 1300;
                 var h = 400;
