@@ -30,10 +30,11 @@
             var c2= document.getElementById("canvas2");
             var ctx2 = c2.getContext("2d");
             
+            
 
                 //temp2= parseFloat(temp);
                // console.log(more)
-                if(more==='mist'){
+                if(more==='mist' || more==='light rain'){
                     function init() {
                     mist = new Image();
                         mist.src = 'images/misty.png';
@@ -58,9 +59,13 @@
                         ctx.fillStyle = shading;
                         ctx.fillRect(0, 0, 1300, 400);
                         ctx.drawImage(mist, mist_x, 180);
+                        ctx.strokeStyle = 'white';
+                        ctx.textAlign = 'center';
+                        fontsize = '100px';
+                        ctx.font = fontsize +"px Segoe UI";
+                        ctx.lineWidth = fontsize / 100;
+                        ctx.fillText(city, canvas.width/2, 100);
                         
-                        
-                
                         update();
                     }
                     
@@ -71,7 +76,8 @@
                 var height = 200;
                 var cloud;
                 var cloud_x;
-                ctx.clearRect(0,0, 1300,500)
+                ctx.clearRect(0,0, 1300,500);
+                
                 function init() {
                     cloud = new Image();
                     cloud1 = new Image();
@@ -86,16 +92,16 @@
                     
                     function update(){
                         cloud_x += 0.3;
-                        if (cloud_x > 1000 && cloud2_x<0) {
+                        if (cloud_x > 1000) {
                             cloud_x = -cloud.width;
-                            ctx.clearRect(0,0, 1520,500)
+                            ctx.clearRect(0,0, 1520,500);
                         };
                     }
                     function loop() {
                         ctx2.fillText(city, 0, 0)
                         ctx.drawImage(cloud, cloud_x, 0);
                         ctx.drawImage(cloud1, 0,0);
-                        ctx2.fillText('location',0,0);
+
                         update();
                         
                     }
@@ -113,11 +119,17 @@
                         return setInterval(loop, 10);
                     } function loop() {
                         ctx.drawImage(sky, 0,0);
-                        
+                        ctx.strokeStyle = 'white';
+                        ctx.textAlign = 'center';
+                        fontsize = '100px';
+                        ctx.font = fontsize +"px Segoe UI";
+                        ctx.lineWidth = fontsize / 100;
+                        ctx.fillText(city, canvas.width/2, 100);
+                                    
                     }
                      init();       
                     
-            }else if( more==='shower rain' || more==='rain' || more==='overcast clouds'){
+            }else if( more==='shower rain' || more==='rain' || more==='heavy intensity rain' || more==='moderate rain' || more==='thunderstorm'){
                 function rain() {
                 var w = 1300;
                 var h = 400;
@@ -152,60 +164,6 @@
                     ctx.stroke();
                     
                     
-                };
-                update();
-                 };
-                function update() {
-                for(var b = 0; b < particles.length; b++) {
-                    var p = particles[b];
-                    p.x +=1;
-                    p.y += p.ylength;
-                    //is they go out of screen, remake on canvas
-                    if(p.x > w || p.y > h) {
-                    p.x = Math.random() * w;
-                    p.y = -20;
-                    }
-                }
-                }
-                setInterval(makerain, 30);    
-            
-            };
-            rain();
-                                
-            }else if( more==='shower rain' || more==='rain' || more==='thunderstorm' ){
-                function rain() {
-                var w = 1300;
-                var h = 400;
-                
-                ctx.lineWidth = 1;
-                ctx.lineCap = 'round';
-         
-                var arr = [];
-                var drops = 800;
-                for(var i= 0; i< drops;i++) {
-                arr.push({
-                    //x=x coord, y=y coord, ylentgh= lentgh of drop, l=x width very samll (1)
-                    x: Math.random() * w,
-                    y: Math.random() * h,
-                    l: Math.random() * 1,
-                    ylength: Math.random() * 10 + 10
-                })};
-                
-                var particles = [];
-                for(var i = 0; i < drops; i++) {
-                particles[i] = arr[i];
-                };
-                
-                function makerain() {
-                ctx.clearRect(0, 0, w, h);
-                for(var i = 0; i < particles.length; i++) {
-                    var p = particles[i];
-                    ctx.beginPath();
-                    //make particle of dimensions
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x + p.l * 1, p.y + p.l * p.ylength);
-                    ctx.stroke();
-                    ctx2.fillText('location',0,0);
                 };
                 update();
                  };
@@ -254,6 +212,7 @@
                     ctx.arc(p.x,p.y, Math.random()*7,0, 2*Math.PI)
                     ctx.fillStyle='lightgrey';
                     ctx.fill();
+                   
                 };
                 update();
                  };
@@ -273,6 +232,31 @@
             };
             snow();
                                 
+            }else if( more ==='haze'|| more==='smoke' || more==='overcast clouds'){
+
+                var cloudimg = new Image();
+                var bgimg= new Image();
+                var x = canvas.width;
+                var y = 0;
+                cloud2x=0;
+
+                cloudimg.onload = update;
+                cloudimg.src = "images/haz2.png";
+
+                bgimg.src='images/hazeclouds.png';
+                function update() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);  
+                ctx.globalAlpha=0.5;
+                ctx.drawImage(cloudimg, x, 0);  
+                ctx.drawImage(bgimg, 0, 0);                      
+                x -= 2;
+                if (x < canvas.width && cloud2x< canvas.width) {
+                    requestAnimationFrame(update); 
+                }
+                if(x<1){
+                    x=canvas.width;
+                }    
+                };
             }
         };
         })
